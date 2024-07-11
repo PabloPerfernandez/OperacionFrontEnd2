@@ -14,6 +14,8 @@ export default {
 }
 </script>
 
+/*cambio*/
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
