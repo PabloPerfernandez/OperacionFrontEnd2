@@ -8,5 +8,14 @@ namespace ByteStormBackend.Models
         public int OperativoID { get; set; }
         public Operativo Operativo { get; set; }
         public List<Equipo> Equipos { get; set; }
+
+        // Constructor que inicializa las propiedades obligatorias
+        public Mision()
+        {
+            Descripcion = string.Empty;
+            Estado = string.Empty;
+            Operativo = new Operativo();
+            Equipos = new List<Equipo>();
+        }
     }
 }

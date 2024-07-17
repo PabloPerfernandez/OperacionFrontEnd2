@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ByteStormBackend.Data;
 using ByteStormBackend.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ByteStormBackend.Data;
 
 namespace ByteStormBackend.Controllers
 {
@@ -19,14 +16,12 @@ namespace ByteStormBackend.Controllers
             _context = context;
         }
 
-        // GET: api/Equipo
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Equipo>>> GetEquipos()
         {
             return await _context.Equipos.ToListAsync();
         }
 
-        // GET: api/Equipo/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Equipo>> GetEquipo(int id)
         {
@@ -40,7 +35,15 @@ namespace ByteStormBackend.Controllers
             return equipo;
         }
 
-        // PUT: api/Equipo/5
+        [HttpPost]
+        public async Task<ActionResult<Equipo>> PostEquipo(Equipo equipo)
+        {
+            _context.Equipos.Add(equipo);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetEquipo), new { id = equipo.ID }, equipo);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEquipo(int id, Equipo equipo)
         {
@@ -70,17 +73,6 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        // POST: api/Equipo
-        [HttpPost]
-        public async Task<ActionResult<Equipo>> PostEquipo(Equipo equipo)
-        {
-            _context.Equipos.Add(equipo);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetEquipo", new { id = equipo.ID }, equipo);
-        }
-
-        // DELETE: api/Equipo/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEquipo(int id)
         {

@@ -7,8 +7,8 @@ namespace ByteStormBackend.Data
     {
         public ByteStormContext(DbContextOptions<ByteStormContext> options) : base(options) { }
 
-        public DbSet<Equipo> Equipos { get; set; }
         public DbSet<Mision> Misiones { get; set; }
         public DbSet<Operativo> Operativos { get; set; }
+        public DbSet<Equipo> Equipos { get; set; }
     }
 }
