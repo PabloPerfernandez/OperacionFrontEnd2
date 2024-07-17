@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj": {}
+    "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\BytestormBackEnd\\ByteStormBackend.csproj": {}
   },
   "projects": {
-    "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj": {
+    "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\BytestormBackEnd\\ByteStormBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj",
+        "projectUniqueName": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\BytestormBackEnd\\ByteStormBackend.csproj",
         "projectName": "ByteStormBackend",
-        "projectPath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj",
+        "projectPath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\BytestormBackEnd\\ByteStormBackend.csproj",
         "packagesPath": "C:\\Users\\pable\\.nuget\\packages\\",
-        "outputPath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\obj\\",
+        "outputPath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\BytestormBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pable\\AppData\\Roaming\\NuGet\\NuGet.Config",

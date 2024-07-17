@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wuUDDBnO4CI=",
+  "dgSpecHash": "AnLhnh5+uDQ=",
   "success": true,
-  "projectFilePath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj",
+  "projectFilePath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\BytestormBackEnd\\ByteStormBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pable\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\pable\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
