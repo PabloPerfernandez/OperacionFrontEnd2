@@ -1,17 +1,21 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <div id="app">
+    <AppNavigation />
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
+import AppNavigation from './components/AppNavigation.vue';
+
 export default {
   name: 'App',
+  components: {
+    AppNavigation,
+  },
 };
 </script>
 
 <style>
-@import '~vuetify/styles';
+/* Add your styles here */
 </style>

@@ -41,13 +41,13 @@ namespace ByteStormBackend.Controllers
             _context.Misiones.Add(mision);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetMision), new { id = mision.ID }, mision);
+            return CreatedAtAction(nameof(GetMision), new { id = mision.Codigo }, mision);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMision(int id, Mision mision)
         {
-            if (id != mision.ID)
+            if (id != mision.Codigo)
             {
                 return BadRequest();
             }
@@ -90,7 +90,7 @@ namespace ByteStormBackend.Controllers
 
         private bool MisionExists(int id)
         {
-            return _context.Misiones.Any(e => e.ID == id);
+            return _context.Misiones.Any(e => e.Codigo == id);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace ByteStormBackend.Models
 
         public Operativo()
         {
+            ID = 0;
             Nombre = string.Empty;
             Rol = string.Empty;
             Misiones = new List<Mision>();
