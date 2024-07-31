@@ -2,15 +2,17 @@ namespace ByteStormBackend.Models
 {
     public class Equipo
     {
-        public bool Tipo { get; set; }
+        public int EquipoID { get; set; }
+        public int Tipo { get; set; }
         public string Descripcion { get; set; }
-        public bool Estado { get; set; }
+        public int EstadoEquipo { get; set; }
 
         public Equipo()
         {
-            Tipo = true;
+            EquipoID = 0;
+            Tipo = 0;
             Descripcion = string.Empty;
-            Estado = true;
+            EstadoEquipo = 0;
         }
     }
 }
