@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ByteStormBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2213dc1b23cbe43e377d3549e0e2823f1f26361d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c92ea033ca4d6b2279d9d1e2d75b31b982a862e5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ByteStormBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ByteStormBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
