@@ -1,21 +1,22 @@
 <template>
-  <div id="app">
-    <AppNavigation />
-    <router-view></router-view>
-  </div>
+  <v-app>
+    <v-main>
+      <OperativoList />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import AppNavigation from './components/AppNavigation.vue';
+import OperativoList from './components/OperativoList.vue';
 
 export default {
   name: 'App',
   components: {
-    AppNavigation,
+    OperativoList, // Registra el componente aquí
   },
 };
 </script>
 
 <style>
-/* Add your styles here */
+/* Estilos globales */
 </style>

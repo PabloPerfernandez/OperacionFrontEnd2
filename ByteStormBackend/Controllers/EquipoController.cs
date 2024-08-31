@@ -41,13 +41,13 @@ namespace ByteStormBackend.Controllers
             _context.Equipos.Add(equipo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetEquipo), new { id = equipo.EquipoID }, equipo);
+            return CreatedAtAction(nameof(GetEquipo), new { id = equipo.EquipoCodigo }, equipo);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEquipo(int id, Equipo equipo)
         {
-            if (id != equipo.EquipoID)
+            if (id != equipo.EquipoCodigo)
             {
                 return BadRequest();
             }
@@ -90,7 +90,7 @@ namespace ByteStormBackend.Controllers
 
         private bool EquipoExists(int id)
         {
-            return _context.Equipos.Any(e => e.EquipoID == id);
+            return _context.Equipos.Any(e => e.EquipoCodigo == id);
         }
     }
 }

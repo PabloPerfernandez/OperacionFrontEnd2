@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ByteStormBackend.Models
@@ -5,17 +6,16 @@ namespace ByteStormBackend.Models
     public class Mision
     {
         [Key]
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public int Estado { get; set; }
-        public int EquipoID { get; set; }
+        public int Codigo { get; set; }  // Clave primaria de Mision
 
-        public Mision()
-        {
-            Codigo = 0;
-            Descripcion = string.Empty;
-            Estado = 0;
-            EquipoID = 0;
-        }
+        public string? Descripcion { get; set; }
+        public int Estado { get; set; }
+
+        // Relación con Equipos (una misión puede tener múltiples equipos)
+        public ICollection<Equipo>? Equipos { get; set; }
+
+        // Clave foránea hacia Operativo
+        public int OperativoID { get; set; }
+        public required Operativo Operativo { get; set; }
     }
 }
