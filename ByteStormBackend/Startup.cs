@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ByteStormBackend.Data;
+using Microsoft.OpenApi.Models;
 
 namespace ByteStormBackend
 {
@@ -19,23 +20,27 @@ namespace ByteStormBackend
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Configuración SQL
             services.AddDbContext<ByteStormContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            // Configuración CORS
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontend",
-                    builder => builder
-                        .WithOrigins("http://localhost:8080")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+                options.AddPolicy("AllowFrontend", builder =>
+                {
+                    builder.WithOrigins("http://localhost:8080")
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials();
+                });
             });
 
-            // Controladores
             services.AddControllers();
+
+            // Configuración de Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ByteStorm API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,6 +53,14 @@ namespace ByteStormBackend
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // Habilita Swagger solo si está configurado
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ByteStorm API v1");
+                c.RoutePrefix = string.Empty; // Esto hace que Swagger esté en la ruta raíz
+            });
 
             app.UseCors("AllowFrontend");
 
