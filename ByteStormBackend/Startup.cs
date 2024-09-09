@@ -54,14 +54,6 @@ namespace ByteStormBackend
 
             app.UseRouting();
 
-            // Habilita Swagger solo si está configurado
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ByteStorm API v1");
-                c.RoutePrefix = string.Empty; // Esto hace que Swagger esté en la ruta raíz
-            });
-
             app.UseCors("AllowFrontend");
 
             app.UseAuthorization();
@@ -69,6 +61,13 @@ namespace ByteStormBackend
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+             app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ByteStorm API v1");
+              //  c.RoutePrefix = string.Empty;
             });
         }
     }

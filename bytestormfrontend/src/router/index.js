@@ -1,10 +1,9 @@
-// router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import OperativoList from '../components/OperativoList.vue';
 
 const routes = [
   {
-    path: '/operativos', // Ruta donde se mostrará el componente
+    path: '/operativos',
     name: 'OperativoList',
     component: OperativoList,
   },

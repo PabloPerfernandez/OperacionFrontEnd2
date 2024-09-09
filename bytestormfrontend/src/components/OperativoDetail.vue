@@ -1,4 +1,3 @@
-<!-- src/components/OperativoDetail.vue -->
 <template>
     <div>
       <h2>Detalles del Operativo</h2>
@@ -25,7 +24,7 @@
     methods: {
       async fetchOperativo() {
         try {
-          const response = await axios.get(`http://localhost:5000/api/operativos/${this.id}`); // Ajusta la URL
+          const response = await axios.get(`http://localhost:5056/api/operativos/${this.id}`);
           this.operativo = response.data;
         } catch (error) {
           console.error('Error fetching operativo:', error);

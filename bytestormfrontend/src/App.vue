@@ -12,11 +12,11 @@ import OperativoList from './components/OperativoList.vue';
 export default {
   name: 'App',
   components: {
-    OperativoList, // Registra el componente aquí
+    OperativoList,
   },
 };
 </script>
 
 <style>
-/* Estilos globales */
+
 </style>

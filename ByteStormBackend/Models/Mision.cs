@@ -6,7 +6,7 @@ namespace ByteStormBackend.Models
     public class Mision
     {
         [Key]
-        public int Codigo { get; set; }  // Clave primaria de Mision
+        public int Codigo { get; set; }  // Primary Key
 
         public string? Descripcion { get; set; }
         public int Estado { get; set; }

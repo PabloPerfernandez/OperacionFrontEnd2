@@ -18,19 +18,20 @@ namespace ByteStormBackend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure the Operativo to Misiones relationship
+            // Configuración Operativo y Misiones
             modelBuilder.Entity<Mision>()
                 .HasOne(m => m.Operativo)
                 .WithMany(o => o.Misiones)
                 .HasForeignKey(m => m.OperativoID)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Configure the Mision to Equipos relationship
+            // Configuración Mision y Equipos
             modelBuilder.Entity<Equipo>()
                 .HasOne(e => e.Mision)
                 .WithMany(m => m.Equipos)
                 .HasForeignKey(e => e.MisionID)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

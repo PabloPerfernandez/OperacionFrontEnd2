@@ -24,7 +24,6 @@ namespace ByteStormBackend.Models
         {
             if (Misiones != null && Misiones.Any())
             {
-                // Retornar los códigos de misiones asignadas separados por coma
                 MisionAsignada = string.Join(", ", Misiones.Select(m => m.Codigo));
             }
             else

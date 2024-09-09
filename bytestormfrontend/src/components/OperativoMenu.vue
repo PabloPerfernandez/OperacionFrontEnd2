@@ -18,7 +18,7 @@
               {{ operativo.Nombre }} - {{ operativo.Rol }}
             </v-btn>
   
-            <!-- Lista desplegable de misiones asignadas -->
+            <!-- Lista desplegable de Misiones -->
             <v-list>
               <v-list-item
                 v-if="operativo.Misiones.length > 0"
@@ -68,7 +68,7 @@
   export default {
     data() {
       return {
-        // Datos simulados, remplázalos con tus datos reales desde el backend
+        // Datos prueba
         operativos: [
           {
             ID: 1,
@@ -91,7 +91,7 @@
       };
     },
     methods: {
-      // Muestra el diálogo con los detalles de la misión
+      // Diálogo con los detalles de la misión
       mostrarMision(mision) {
         this.misionSeleccionada = mision;
         this.dialog = true;

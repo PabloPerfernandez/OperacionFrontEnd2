@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj": {}
+    "D:\\Smartway\\ByteStorm_Operacion\\bytestormoperacion\\ByteStormBackend\\ByteStormBackend.csproj": {}
   },
   "projects": {
-    "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj": {
+    "D:\\Smartway\\ByteStorm_Operacion\\bytestormoperacion\\ByteStormBackend\\ByteStormBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj",
+        "projectUniqueName": "D:\\Smartway\\ByteStorm_Operacion\\bytestormoperacion\\ByteStormBackend\\ByteStormBackend.csproj",
         "projectName": "ByteStormBackend",
-        "projectPath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\ByteStormBackend.csproj",
-        "packagesPath": "C:\\Users\\pable\\.nuget\\packages\\",
-        "outputPath": "E:\\SmartWay\\Operacion_ByteStorm\\OperacionFrontEnd2\\ByteStormBackend\\obj\\",
+        "projectPath": "D:\\Smartway\\ByteStorm_Operacion\\bytestormoperacion\\ByteStormBackend\\ByteStormBackend.csproj",
+        "packagesPath": "C:\\Users\\Pableras\\.nuget\\packages\\",
+        "outputPath": "D:\\Smartway\\ByteStorm_Operacion\\bytestormoperacion\\ByteStormBackend\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\pable\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pableras\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -101,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

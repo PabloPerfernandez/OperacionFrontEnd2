@@ -2,7 +2,6 @@
   <v-container>
     <h1>Lista de Operativos</h1>
     <v-list>
-      <!-- Verifica si hay operativos antes de renderizar -->
       <template v-if="operativos.length > 0">
         <v-list-item
           v-for="operativo in operativos"
@@ -12,7 +11,7 @@
             <v-list-item-title>{{ operativo.nombre }}</v-list-item-title>
             <v-list-item-subtitle>{{ operativo.rol }}</v-list-item-subtitle>
 
-            <!-- Mostrar las misiones si existen -->
+            <!-- Mostrar misiones -->
             <v-list v-if="operativo.misiones.length > 0">
               <v-list-item
                 v-for="mision in operativo.misiones"
@@ -52,7 +51,7 @@ export default {
   name: 'OperativoList',
   data() {
     return {
-      operativos: [], // Inicializa la lista de operativos vacía
+      operativos: [],
     };
   },
   mounted() {
