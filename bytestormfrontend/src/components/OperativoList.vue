@@ -60,8 +60,8 @@ export default {
   methods: {
     async fetchOperativos() {
       try {
-        const response = await fetch('http://localhost:5056/api/operativos'); 
-        if (!response.ok) throw new Error('Error al obtener los operativos');
+        const response = await fetch('http://localhost:5056/api/operativo');
+        if (!response.ok) throw new Error('Error al obtener los operativo');
         this.operativos = await response.json();
       } catch (error) {
         console.error('Error:', error);

@@ -45,14 +45,13 @@ app.UseRouting();
 // Activar CORS
 app.UseCors("AllowFrontend");
 
-// Middleware de Swagger (agregado)
-app.UseSwagger(); // Asegúrate de incluir esto
+// Habilitar Swagger y la UI de Swagger
+app.UseSwagger();
 
-// Configuración de la interfaz de Swagger
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ByteStorm API v1");
-    // c.RoutePrefix = string.Empty; // Opcional para cambiar la ruta de Swagger
+    // c.RoutePrefix = string.Empty; // Descomenta esta línea si quieres que Swagger esté en la raíz
 });
 
 app.UseAuthorization();

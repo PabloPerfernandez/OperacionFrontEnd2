@@ -1,5 +1,4 @@
-// src/services/apiService.js
-import axios from '../plugins/axios'; // Ajusta la ruta según donde esté tu archivo axios.js
+import axios from '../plugins/axios.js'; // Ajusta la ruta según donde esté tu archivo axios.js
 
 // Función para obtener los operativos
 export const getOperativos = async () => {

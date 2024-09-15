@@ -3,6 +3,10 @@ import OperativoList from '../components/OperativoList.vue';
 
 const routes = [
   {
+    path: '/',
+    redirect: '/operativos',
+  },
+  {
     path: '/operativos',
     name: 'OperativoList',
     component: OperativoList,
@@ -10,7 +14,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL || '/'),
   routes,
 });
 
