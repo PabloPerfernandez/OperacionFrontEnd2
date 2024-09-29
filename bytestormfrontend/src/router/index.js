@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import OperativoList from '../components/OperativoList.vue';
+import OperativoList from '../components/MainList.vue';
 
 const routes = [
   {

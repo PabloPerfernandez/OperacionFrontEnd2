@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import OperativoList from '../components/OperativoList.vue';
+import OperativoList from '../components/MainList.vue';
 
 export default {
   components: {

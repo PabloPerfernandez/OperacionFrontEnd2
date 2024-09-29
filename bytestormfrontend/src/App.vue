@@ -1,18 +1,18 @@
 <template>
   <v-app>
     <v-main>
-      <OperativoList />
+      <MainList />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import OperativoList from './components/OperativoList.vue';
+import MainList from './components/MainList.vue';
 
 export default {
   name: 'App',
   components: {
-    OperativoList,
+    MainList,
   },
 };
 </script>

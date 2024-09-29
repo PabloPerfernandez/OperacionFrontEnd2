@@ -13,13 +13,10 @@ namespace ByteStormBackend.Models
         public required string Nombre { get; set; }
         public required string Rol { get; set; }
 
-        // Relación con Misión
         public ICollection<Mision> Misiones { get; set; } = new List<Mision>();
 
-        // Propiedad para almacenar los códigos de misiones asignadas
         public string MisionAsignada { get; set; } = "Sin Misiones Asignadas";
 
-        // Método para actualizar 'MisionAsignada' cada vez que cambien las misiones
         public void ActualizarMisionesAsignadas()
         {
             if (Misiones != null && Misiones.Any())
