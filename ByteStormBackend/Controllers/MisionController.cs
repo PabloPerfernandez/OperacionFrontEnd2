@@ -35,8 +35,8 @@ namespace ByteStormBackend.Controllers
             return mision;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Mision>> PostMision(Mision mision)
+        [HttpPost("crear")]
+        public async Task<ActionResult<Mision>> CrearMision(Mision mision)
         {
             _context.Misiones.Add(mision);
             await _context.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> DeleteMision(int id)
         {
             var mision = await _context.Misiones.FindAsync(id);

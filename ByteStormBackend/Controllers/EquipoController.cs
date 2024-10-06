@@ -35,8 +35,8 @@ namespace ByteStormBackend.Controllers
             return equipo;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Equipo>> PostEquipo(Equipo equipo)
+        [HttpPost("crear")]
+        public async Task<ActionResult<Equipo>> CrearEquipo(Equipo equipo)
         {
             _context.Equipos.Add(equipo);
             await _context.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> DeleteEquipo(int id)
         {
             var equipo = await _context.Equipos.FindAsync(id);

@@ -35,8 +35,9 @@ namespace ByteStormBackend.Controllers
             return operativo;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Operativo>> PostOperativo(Operativo operativo)
+        // Agregamos la ruta /crear para POST
+        [HttpPost("crear")]
+        public async Task<ActionResult<Operativo>> CrearOperativo(Operativo operativo)
         {
             _context.Operativos.Add(operativo);
             await _context.SaveChangesAsync();
@@ -73,7 +74,7 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> DeleteOperativo(int id)
         {
             var operativo = await _context.Operativos.FindAsync(id);

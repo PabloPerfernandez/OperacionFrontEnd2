@@ -1,22 +1,19 @@
 <template>
   <v-app>
     <v-main>
-      <MainList />
+      <router-view /> <!-- Lugar donde se cargarán las rutas -->
     </v-main>
   </v-app>
 </template>
 
 <script>
-import MainList from './components/MainList.vue';
-
 export default {
   name: 'App',
-  components: {
-    MainList,
-  },
 };
 </script>
 
 <style>
-
+main {
+  background-color: #9A2B2B;
+}
 </style>

@@ -1,20 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import OperativoList from '../components/MainList.vue';
+import IntroScreen from '@/components/IntroScreen.vue';
+import MainList from '@/components/MainList.vue';
 
 const routes = [
   {
-    path: '/',
-    redirect: '/operativos',
+    path: '/', // Ruta raíz que cargará la pantalla de bienvenida
+    name: 'IntroScreen',
+    component: IntroScreen,
   },
   {
-    path: '/operativos',
-    name: 'OperativoList',
-    component: OperativoList,
+    path: '/operativos', // Ruta que cargará el MainList.vue
+    name: 'MainList',
+    component: MainList,
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL || '/'),
+  history: createWebHistory(),
   routes,
 });
 
