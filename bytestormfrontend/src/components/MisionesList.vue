@@ -17,8 +17,14 @@
           </v-list-item>
         </v-list>
 
-        <!-- Si no tiene equipos asignados -->
         <v-card-text v-else>Sin equipos asignados</v-card-text>
+
+        <!-- Botones de editar y eliminar -->
+        <v-card-actions>
+          <v-btn @click="$emit('edit', mision, 'mision')" color="primary">Editar</v-btn>
+          <v-btn @click="$emit('delete', mision, 'mision')" color="error">Eliminar</v-btn>
+        </v-card-actions>
+
       </v-card>
     </v-col>
   </v-row>

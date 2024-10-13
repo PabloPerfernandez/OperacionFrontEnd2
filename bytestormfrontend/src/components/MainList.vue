@@ -2,7 +2,7 @@
   <v-container>
     <h1>OPERACIÓN BYTESTORM</h1>
 
-    <!-- Componente CRUD para agregar o editar datos -->
+    <!-- CudForm -->
     <CrudForm
       :equipoSeleccionado="selectedEquipo"
       :operativoSeleccionado="selectedOperativo"
@@ -17,7 +17,6 @@
       @delete="deleteItem"
     />
     <v-divider class="my-5"></v-divider>
-
     <h2>Lista de Misiones</h2>
     <MisionesList
       :misiones="misionesFiltradas"
@@ -59,7 +58,6 @@ export default {
     const selectedMision = ref(null);
     const selectedEquipo = ref(null);
 
-    // Función para filtrar y mapear las misiones con sus operativos
     const misionesFiltradas = computed(() => {
       return operativos.value
         .filter((operativo) => operativo.misiones && operativo.misiones.length > 0)
@@ -71,7 +69,7 @@ export default {
         );
     });
 
-    // Función para obtener los operativos
+    // Obtener los operativos
     const fetchOperativos = async () => {
       try {
         const response = await fetch("http://localhost:5056/api/operativo");
@@ -82,14 +80,13 @@ export default {
       }
     };
 
-    // Función para obtener las misiones
+    // Obtener las misiones
     const fetchMisiones = async () => {
       try {
         const response = await fetch("http://localhost:5056/api/mision");
         if (!response.ok) throw new Error("Error al obtener las misiones");
         misiones.value = await response.json();
 
-        // Asignar las misiones al operativo correspondiente usando OperativoID
         operativos.value.forEach((operativo) => {
           operativo.misiones = misiones.value.filter(
             (mision) => mision.operativoID === operativo.id
@@ -100,14 +97,13 @@ export default {
       }
     };
 
-    // Función para obtener los equipos
+    // Obtener los equipos
     const fetchEquipos = async () => {
       try {
         const response = await fetch("http://localhost:5056/api/equipo");
         if (!response.ok) throw new Error("Error al obtener los equipos");
         equipos.value = await response.json();
 
-        // Asignar los equipos a la misión correspondiente usando MisionID
         equipos.value = equipos.value.map((equipo) => {
           const mision = misiones.value.find((m) => m.codigo === equipo.misionID);
           return { ...equipo, mision };
@@ -117,7 +113,7 @@ export default {
       }
     };
 
-    // Función para manejar la edición de un ítem (equipo, operativo o misión)
+    // Edición de ítem
     const editItem = (item) => {
       if (item.operativoID) {
         selectedOperativo.value = item;
@@ -134,17 +130,31 @@ export default {
       }
     };
 
-    // Función para eliminar un ítem (equipo, operativo o misión)
-    const deleteItem = async (item) => {
+    // Eliminar
+    const deleteItem = async (item, type) => {
       try {
+        console.log("valor item", item);
+        console.log("valor type", type);
+        
+        if (!item) {
+          throw new Error("Ítem no válido o no encontrado para eliminar.");
+        }
+
         let apiUrl = "";
 
-        if (item.operativoID) {
-          apiUrl = `http://localhost:5056/api/operativo/delete/${item.operativoID}`;
-        } else if (item.misionCodigo) {
-          apiUrl = `http://localhost:5056/api/mision/delete/${item.misionCodigo}`;
+        // Eliminar Operativo
+        if (type == 'operativo' && item.id) {
+          apiUrl = `http://localhost:5056/api/operativo/delete?id=${item.id}`;
+        }
+        // Eliminar Misión
+        else if (type == 'mision' && item.codigo) {
+          apiUrl = `http://localhost:5056/api/mision/delete?codigo=${item.codigo}`;
+        }
+        // Eliminar Equipo
+        else if (type == 'equipo' && item.EquipoCodigo) {
+          apiUrl = `http://localhost:5056/api/equipo/delete?EquipoCodigo=${item.EquipoCodigo}`;
         } else {
-          apiUrl = `http://localhost:5056/api/equipo0/delete/${item.equipoID}`;
+          throw new Error("No se puede determinar el tipo de ítem para eliminar.");
         }
 
         const response = await fetch(apiUrl, {
@@ -152,16 +162,15 @@ export default {
         });
 
         if (!response.ok) {
-          throw new Error("Error al eliminar el ítem");
+          throw new Error("Error al eliminar el ítem.");
         }
 
-        handleDataSaved(); // Recargar los datos después de eliminar
+        handleDataSaved();
       } catch (error) {
-        console.error("Error al eliminar el ítem:", error);
+        console.error("Error al eliminar el ítem:", error.message);
       }
     };
 
-    // Función que se ejecuta después de guardar o eliminar datos
     const handleDataSaved = () => {
       selectedOperativo.value = null;
       selectedMision.value = null;
@@ -171,7 +180,6 @@ export default {
       fetchEquipos();
     };
 
-    // Llamar a las funciones fetch cuando el componente se monta
     onMounted(() => {
       fetchOperativos();
       fetchMisiones();
@@ -185,9 +193,9 @@ export default {
       selectedOperativo,
       selectedMision,
       selectedEquipo,
-      editItem, // Método para editar el ítem
-      deleteItem, // Método para eliminar el ítem
-      handleDataSaved, // Método para recargar los datos después de guardar o eliminar
+      editItem,
+      deleteItem,
+      handleDataSaved,
     };
   },
 };

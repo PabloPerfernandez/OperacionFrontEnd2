@@ -1,6 +1,5 @@
 <template>
   <div class="intro-screen">
-    <!-- Video de introducción -->
     <video
       ref="introVideo"
       autoplay
@@ -27,7 +26,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$router.push('/operativos'); // Redirige a la página de operativos después de 10 segundos
+      this.$router.push('/operativos');
     }, 6000);
   },
 };
@@ -42,7 +41,6 @@ export default {
   background-color: #9A2B2B;
 }
 
-/* Definir un tamaño más pequeño para el video */
 .small-video {
   width: 60vw;
   height: auto;

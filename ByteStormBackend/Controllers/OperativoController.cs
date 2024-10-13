@@ -35,7 +35,6 @@ namespace ByteStormBackend.Controllers
             return operativo;
         }
 
-        // Agregamos la ruta /crear para POST
         [HttpPost("crear")]
         public async Task<ActionResult<Operativo>> CrearOperativo(Operativo operativo)
         {

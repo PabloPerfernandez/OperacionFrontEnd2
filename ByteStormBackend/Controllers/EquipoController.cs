@@ -16,40 +16,49 @@ namespace ByteStormBackend.Controllers
             _context = context;
         }
 
+        // Obtener todos los equipos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Equipo>>> GetEquipos()
         {
             return await _context.Equipos.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Equipo>> GetEquipo(int id)
+        // Obtener un equipo por su código
+        [HttpGet("{EquipoCodigo}")]
+        public async Task<ActionResult<Equipo>> GetEquipo(int EquipoCodigo)
         {
-            var equipo = await _context.Equipos.FindAsync(id);
+            var equipo = await _context.Equipos.FindAsync(EquipoCodigo);
 
             if (equipo == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"El equipo con código {EquipoCodigo} no fue encontrado." });
             }
 
             return equipo;
         }
 
+        // Crear un nuevo equipo
         [HttpPost("crear")]
         public async Task<ActionResult<Equipo>> CrearEquipo(Equipo equipo)
         {
+            if (EquipoExists(equipo.EquipoCodigo))
+            {
+                return Conflict(new { message = $"El equipo con código {equipo.EquipoCodigo} ya existe." });
+            }
+
             _context.Equipos.Add(equipo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetEquipo), new { id = equipo.EquipoCodigo }, equipo);
+            return CreatedAtAction(nameof(GetEquipo), new { codigo = equipo.EquipoCodigo }, equipo);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEquipo(int id, Equipo equipo)
+        // Actualizar un equipo existente
+        [HttpPut("{EquipoCodigo}")]
+        public async Task<IActionResult> PutEquipo(int EquipoCodigo, Equipo equipo)
         {
-            if (id != equipo.EquipoCodigo)
+            if (EquipoCodigo != equipo.EquipoCodigo)
             {
-                return BadRequest();
+                return BadRequest(new { message = "El código del equipo no coincide con el código proporcionado." });
             }
 
             _context.Entry(equipo).State = EntityState.Modified;
@@ -60,9 +69,9 @@ namespace ByteStormBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipoExists(id))
+                if (!EquipoExists(EquipoCodigo))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"El equipo con código {EquipoCodigo} no existe." });
                 }
                 else
                 {
@@ -73,13 +82,14 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteEquipo(int id)
+        // Eliminar un equipo por su código
+        [HttpDelete("{codigo}")]
+        public async Task<IActionResult> DeleteEquipo(int EquipoCodigo)
         {
-            var equipo = await _context.Equipos.FindAsync(id);
+            var equipo = await _context.Equipos.FindAsync(EquipoCodigo);
             if (equipo == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"El equipo con código {EquipoCodigo} no fue encontrado." });
             }
 
             _context.Equipos.Remove(equipo);
@@ -88,9 +98,10 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        private bool EquipoExists(int id)
+        // Verificar si un equipo existe por su código
+        private bool EquipoExists(int codigo)
         {
-            return _context.Equipos.Any(e => e.EquipoCodigo == id);
+            return _context.Equipos.Any(e => e.EquipoCodigo == codigo);
         }
     }
 }

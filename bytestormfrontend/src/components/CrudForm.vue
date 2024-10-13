@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-form @submit.prevent="submitForm">
-      <!-- Campo común para el tipo de entrada -->
       <v-select
         v-model="formData.tipo"
         :items="['Operativo', 'Misión', 'Equipo']"
@@ -50,12 +49,17 @@
           label="Nombre de la Misión"
           required
         ></v-text-field>
+
+        <v-textarea
+          v-model="formData.descripcion"
+          label="Descripción de la Misión"
+        ></v-textarea>
       </template>
 
       <!-- Campos específicos para Equipo -->
       <template v-if="formData.tipo === 'Equipo'">
         <v-text-field
-          v-model="formData.equipoID"
+          v-model="formData.EquipoCodigo"
           label="ID del Equipo"
           required
         ></v-text-field>
@@ -65,6 +69,11 @@
           label="Nombre del Equipo"
           required
         ></v-text-field>
+
+        <v-textarea
+          v-model="formData.descripcion"
+          label="Descripción del Equipo"
+        ></v-textarea>
       </template>
 
       <!-- Botón de enviar -->
@@ -76,141 +85,161 @@
 </template>
 
 <script>
-export default {
+import { ref, watch, defineComponent } from "vue";
+
+export default defineComponent({
   props: {
     equipoSeleccionado: {
       type: Object,
-      default: null
+      default: null,
     },
     operativoSeleccionado: {
       type: Object,
-      default: null
+      default: null,
     },
     misionSeleccionada: {
       type: Object,
-      default: null
-    }
-  },
-  data() {
-    return {
-      formData: {
-        tipo: '', // 'Operativo', 'Misión', 'Equipo'
-        operativoID: '', // Para Operativo
-        nombre: '',
-        rol: '', // Para Operativo
-        misionAsignada: '', // Para Operativo
-        misionCodigo: '', // Para Misión
-        equipoID: '', // Para Equipo
-      },
-      misiones: [] // Aquí puedes cargar las misiones disponibles
-    };
-  },
-  watch: {
-    // Cargar los datos del elemento seleccionado en el formulario
-    equipoSeleccionado: {
-      immediate: true,
-      handler(newVal) {
-        if (newVal) {
-          this.formData.tipo = 'Equipo';
-          this.formData.equipoID = newVal.equipoID;
-          this.formData.nombre = newVal.nombre;
-        }
-      }
+      default: null,
     },
-    operativoSeleccionado: {
-      immediate: true,
-      handler(newVal) {
-        if (newVal) {
-          this.formData.tipo = 'Operativo';
-          this.formData.operativoID = newVal.operativoID;
-          this.formData.nombre = newVal.nombre;
-          this.formData.rol = newVal.rol;
-          this.formData.misionAsignada = newVal.misionAsignada;
-        }
-      }
-    },
-    misionSeleccionada: {
-      immediate: true,
-      handler(newVal) {
-        if (newVal) {
-          this.formData.tipo = 'Misión';
-          this.formData.misionCodigo = newVal.misionCodigo;
-          this.formData.nombre = newVal.nombre;
-        }
-      }
-    }
   },
-  methods: {
-    async submitForm() {
-      try {
-        let apiUrl = '';
-        let method = 'POST';
+  setup(props, { emit }) {
+    const formData = ref({
+      tipo: "",
+      operativoID: "",
+      nombre: "",
+      rol: "",
+      misionAsignada: "",
+      misionCodigo: "",
+      EquipoCodigo: "",
+      descripcion: "",
+    });
 
-        if (this.formData.tipo === 'Operativo') {
-          if (this.operativoSeleccionado) {
-            apiUrl = `http://localhost:5056/api/operativo/${this.operativoSeleccionado.operativoID}`;
-            method = 'PUT';
+    const misiones = ref([]);
+
+    // Watchers para actualizar el formData cuando cambian las selecciones
+    watch(
+      () => props.equipoSeleccionado,
+      (newVal) => {
+        if (newVal) {
+          formData.value = {
+            tipo: "Equipo",
+            EquipoCodigo: newVal.EquipoCodigo || "",
+            nombre: newVal.nombre || "",
+            descripcion: newVal.descripcion || "",
+            rol: "",
+            misionAsignada: "",
+            operativoID: "",
+            misionCodigo: "",
+          };
+        }
+      },
+      { immediate: true }
+    );
+
+    watch(
+      () => props.operativoSeleccionado,
+      (newVal) => {
+        if (newVal) {
+          formData.value = {
+            tipo: "Operativo",
+            operativoID: newVal.operativoID || "",
+            nombre: newVal.nombre || "",
+            rol: newVal.rol || "",
+            misionAsignada: newVal.misionAsignada || "",
+            EquipoCodigo: "",
+            misionCodigo: "",
+            descripcion: "",
+          };
+        }
+      },
+      { immediate: true }
+    );
+
+    watch(
+      () => props.misionSeleccionada,
+      (newVal) => {
+        if (newVal) {
+          formData.value = {
+            tipo: "Misión",
+            misionCodigo: newVal.misionCodigo || "",
+            nombre: newVal.nombre || "",
+            descripcion: newVal.descripcion || "",
+            rol: "",
+            misionAsignada: "",
+            EquipoCodigo: "",
+            operativoID: "",
+          };
+        }
+      },
+      { immediate: true }
+    );
+
+    const submitForm = async () => {
+      try {
+        let apiUrl = "";
+        let method = "POST";
+
+        if (formData.value.tipo === "Operativo") {
+          if (props.operativoSeleccionado) {
+            apiUrl = `http://localhost:5056/api/operativo/${props.operativoSeleccionado.id}`;
+            method = "PUT";
           } else {
-            apiUrl = 'http://localhost:5056/api/operativo/crear';
+            apiUrl = "http://localhost:5056/api/operativo/crear";
           }
-        } else if (this.formData.tipo === 'Misión') {
-          if (this.misionSeleccionada) {
-            apiUrl = `http://localhost:5056/api/mision/${this.misionSeleccionada.misionCodigo}`;
-            method = 'PUT';
+        } else if (formData.value.tipo === "Mision") {
+          if (props.misionSeleccionada) {
+            apiUrl = `http://localhost:5056/api/mision/${props.misionSeleccionada.codigo}`;
+            method = "PUT";
           } else {
-            apiUrl = 'http://localhost:5056/api/mision/crear';
+            apiUrl = "http://localhost:5056/api/mision/crear";
           }
-        } else if (this.formData.tipo === 'Equipo') {
-          if (this.equipoSeleccionado) {
-            apiUrl = `http://localhost:5056/api/equipo/${this.equipoSeleccionado.equipoID}`;
-            method = 'PUT';
+        } else if (formData.value.tipo === "Equipo") {
+          if (props.equipoSeleccionado) {
+            apiUrl = `http://localhost:5056/api/equipo/${props.equipoSeleccionado.EquipoCodigo}`;
+            method = "PUT";
           } else {
-            apiUrl = 'http://localhost:5056/api/equipo/crear';
+            apiUrl = "http://localhost:5056/api/equipo/crear";
           }
         }
 
         const response = await fetch(apiUrl, {
           method: method,
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            nombre: this.formData.nombre,
-            ...(this.formData.tipo === 'Operativo' && {
-              operativoID: this.formData.operativoID,
-              rol: this.formData.rol,
-              misionAsignada: this.formData.misionAsignada
-            }),
-            ...(this.formData.tipo === 'Misión' && {
-              misionCodigo: this.formData.misionCodigo
-            }),
-            ...(this.formData.tipo === 'Equipo' && {
-              equipoID: this.formData.equipoID
-            })
-          })
+          body: JSON.stringify(formData.value),
         });
 
         if (!response.ok) {
-          throw new Error('Error al guardar los datos');
+          throw new Error("Error al guardar los datos");
         }
 
-        this.$emit('data-saved');
-        this.resetForm();
+        emit("data-saved");
+        resetForm();
       } catch (error) {
-        console.error('Error al guardar los datos:', error);
+        console.error("Error al guardar los datos:", error);
       }
-    },
-    resetForm() {
-      this.formData = {
-        tipo: '',
-        operativoID: '',
-        nombre: '',
-        rol: '',
-        misionAsignada: '',
-        misionCodigo: '',
-        equipoID: ''
+    };
+
+    const resetForm = () => {
+      formData.value = {
+        tipo: "",
+        operativoID: "",
+        nombre: "",
+        rol: "",
+        misionAsignada: "",
+        misionCodigo: "",
+        EquipoCodigo: "",
+        descripcion: "",
       };
-    }
-  }
-};
+    };
+
+    return {
+      formData,
+      misiones,
+      submitForm,
+      resetForm,
+    };
+  },
+});
 </script>

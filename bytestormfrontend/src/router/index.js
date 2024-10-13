@@ -4,12 +4,12 @@ import MainList from '@/components/MainList.vue';
 
 const routes = [
   {
-    path: '/', // Ruta raíz que cargará la pantalla de bienvenida
+    path: '/', // Pantalla de bienvenida
     name: 'IntroScreen',
     component: IntroScreen,
   },
   {
-    path: '/operativos', // Ruta que cargará el MainList.vue
+    path: '/operativos', // Web en sí
     name: 'MainList',
     component: MainList,
   },
