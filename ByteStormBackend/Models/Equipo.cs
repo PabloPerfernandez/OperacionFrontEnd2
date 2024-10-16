@@ -5,7 +5,7 @@ namespace ByteStormBackend.Models
     public class Equipo
     {
         [Key]
-        public int EquipoCodigo { get; set; }  // Primary Key
+        public int equipoCodigo { get; set; }  // Primary Key
         public int Tipo { get; set; }
         public string? Descripcion { get; set; }
         public int EstadoEquipo { get; set; }

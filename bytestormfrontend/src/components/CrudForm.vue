@@ -11,7 +11,7 @@
       <!-- Campos específicos para Operativo -->
       <template v-if="formData.tipo === 'Operativo'">
         <v-text-field
-          v-model="formData.operativoID"
+          v-model="formData.id"
           label="ID del Operativo"
           required
         ></v-text-field>
@@ -39,7 +39,7 @@
       <!-- Campos específicos para Misión -->
       <template v-if="formData.tipo === 'Misión'">
         <v-text-field
-          v-model="formData.misionCodigo"
+          v-model="formData.codigo"
           label="Código de Misión"
           required
         ></v-text-field>
@@ -59,7 +59,7 @@
       <!-- Campos específicos para Equipo -->
       <template v-if="formData.tipo === 'Equipo'">
         <v-text-field
-          v-model="formData.EquipoCodigo"
+          v-model="formData.equipoCodigo"
           label="ID del Equipo"
           required
         ></v-text-field>
@@ -109,8 +109,8 @@ export default defineComponent({
       nombre: "",
       rol: "",
       misionAsignada: "",
-      misionCodigo: "",
-      EquipoCodigo: "",
+      codigo: "",
+      equipoCodigo: "",
       descripcion: "",
     });
 
@@ -123,13 +123,13 @@ export default defineComponent({
         if (newVal) {
           formData.value = {
             tipo: "Equipo",
-            EquipoCodigo: newVal.EquipoCodigo || "",
+            equipoCodigo: newVal.equipoCodigo || "",
             nombre: newVal.nombre || "",
             descripcion: newVal.descripcion || "",
             rol: "",
             misionAsignada: "",
             operativoID: "",
-            misionCodigo: "",
+            codigo: "",
           };
         }
       },
@@ -146,8 +146,8 @@ export default defineComponent({
             nombre: newVal.nombre || "",
             rol: newVal.rol || "",
             misionAsignada: newVal.misionAsignada || "",
-            EquipoCodigo: "",
-            misionCodigo: "",
+            equipoCodigo: "",
+            codigo: "",
             descripcion: "",
           };
         }
@@ -161,12 +161,12 @@ export default defineComponent({
         if (newVal) {
           formData.value = {
             tipo: "Misión",
-            misionCodigo: newVal.misionCodigo || "",
+            codigo: newVal.codigo || "",
             nombre: newVal.nombre || "",
             descripcion: newVal.descripcion || "",
             rol: "",
             misionAsignada: "",
-            EquipoCodigo: "",
+            equipoCodigo: "",
             operativoID: "",
           };
         }
@@ -186,7 +186,7 @@ export default defineComponent({
           } else {
             apiUrl = "http://localhost:5056/api/operativo/crear";
           }
-        } else if (formData.value.tipo === "Mision") {
+        } else if (formData.value.tipo === "Misión") {
           if (props.misionSeleccionada) {
             apiUrl = `http://localhost:5056/api/mision/${props.misionSeleccionada.codigo}`;
             method = "PUT";
@@ -195,7 +195,7 @@ export default defineComponent({
           }
         } else if (formData.value.tipo === "Equipo") {
           if (props.equipoSeleccionado) {
-            apiUrl = `http://localhost:5056/api/equipo/${props.equipoSeleccionado.EquipoCodigo}`;
+            apiUrl = `http://localhost:5056/api/equipo/${props.equipoSeleccionado.equipoCodigo}`;
             method = "PUT";
           } else {
             apiUrl = "http://localhost:5056/api/equipo/crear";
@@ -224,12 +224,12 @@ export default defineComponent({
     const resetForm = () => {
       formData.value = {
         tipo: "",
-        operativoID: "",
+        id: "",
         nombre: "",
         rol: "",
         misionAsignada: "",
-        misionCodigo: "",
-        EquipoCodigo: "",
+        codigo: "",
+        equipoCodigo: "",
         descripcion: "",
       };
     };

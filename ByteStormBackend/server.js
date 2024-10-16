@@ -25,8 +25,8 @@ db.run(`
         nombre TEXT NOT NULL,
         descripcion TEXT NOT NULL,
         tipo TEXT NOT NULL,
-        EquipoCodigo TEXT,
-        misionCodigo TEXT
+        equipoCodigo TEXT,
+        Mision TEXT
     );
 `, (err) => {
     if (err) {
@@ -38,14 +38,14 @@ db.run(`
 
 // Crear un nuevo item (equipo, misión o operativo)
 app.post('/api/crear', (req, res) => {
-    const { nombre, descripcion, tipo, EquipoCodigo, misionCodigo } = req.body;
+    const { nombre, descripcion, tipo, codigo, Mision } = req.body;
 
     if (!nombre || !descripcion || !tipo) {
         return res.status(400).json({ message: 'Los campos (nombre, descripción y tipo) son obligatorios.' });
     }
 
-    const sql = 'INSERT INTO items (nombre, descripcion, tipo, EquipoCodigo, misionCodigo) VALUES (?, ?, ?, ?, ?)';
-    db.run(sql, [nombre, descripcion, tipo, EquipoCodigo || null, misionCodigo || null], function (err) {
+    const sql = 'INSERT INTO items (nombre, descripcion, tipo, equipoCodigo, Mision) VALUES (?, ?, ?, ?, ?)';
+    db.run(sql, [nombre, descripcion, tipo, equipoCodigo || null, Mision || null], function (err) {
         if (err) {
             return res.status(500).json({ message: 'Error al insertar los datos', error: err.message });
         }
@@ -81,11 +81,11 @@ app.get('/api/operativo/:id', (req, res) => {
 });
 
 // Obtener un elemento por código (misiones y equipos)
-app.get('/api/equipo/:EquipoCodigo', (req, res) => {
-    const EquipoCodigo = req.params.EquipoCodigo;
-    const sql = 'SELECT * FROM items WHERE EquipoCodigo = ? AND tipo = "Equipo"';
+app.get('/api/equipo/:equipoCodigo', (req, res) => {
+    const equipoCodigo = req.params.equipoCodigo;
+    const sql = 'SELECT * FROM items WHERE equipoCodigo = ? AND tipo = "Equipo"';
 
-    db.get(sql, [EquipoCodigo], (err, row) => {
+    db.get(sql, [equipoCodigo], (err, row) => {
         if (err) {
             return res.status(500).json({ message: 'Error al obtener el equipo', error: err.message });
         }
@@ -96,11 +96,11 @@ app.get('/api/equipo/:EquipoCodigo', (req, res) => {
     });
 });
 
-app.get('/api/mision/:misionCodigo', (req, res) => {
-    const misionCodigo = req.params.misionCodigo;
-    const sql = 'SELECT * FROM items WHERE misionCodigo = ? AND tipo = "Misión"';
+app.get('/api/mision/:codigo', (req, res) => {
+    const codigo = req.params.codigo;
+    const sql = 'SELECT * FROM items WHERE codigo = ? AND tipo = "Misión"';
 
-    db.get(sql, [misionCodigo], (err, row) => {
+    db.get(sql, [Codigo], (err, row) => {
         if (err) {
             return res.status(500).json({ message: 'Error al obtener la misión', error: err.message });
         }
@@ -133,16 +133,16 @@ app.put('/api/operativo/:id', (req, res) => {
 });
 
 // Actualizar un equipo por código
-app.put('/api/equipo/:EquipoCodigo', (req, res) => {
-    const EquipoCodigo = req.params.EquipoCodigo;
+app.put('/api/equipo/:equipoCodigo', (req, res) => {
+    const equipoCodigo = req.params.equipoCodigo;
     const { nombre, descripcion, tipo } = req.body;
 
     if (!nombre || !descripcion || !tipo) {
         return res.status(400).json({ message: 'Todos los campos (nombre, descripción y tipo) son obligatorios.' });
     }
 
-    const sql = 'UPDATE items SET nombre = ?, descripcion = ?, tipo = ? WHERE EquipoCodigo = ? AND tipo = "Equipo"';
-    db.run(sql, [nombre, descripcion, tipo, EquipoCodigo], function (err) {
+    const sql = 'UPDATE items SET nombre = ?, descripcion = ?, tipo = ? WHERE equipoCodigo = ? AND tipo = "Equipo"';
+    db.run(sql, [nombre, descripcion, tipo, equipoCodigo], function (err) {
         if (err) {
             return res.status(500).json({ message: 'Error al actualizar el equipo', error: err.message });
         }
@@ -154,16 +154,16 @@ app.put('/api/equipo/:EquipoCodigo', (req, res) => {
 });
 
 // Actualizar una misión por código
-app.put('/api/mision/:misionCodigo', (req, res) => {
-    const misionCodigo = req.params.misionCodigo;
+app.put('/api/mision/:codigo', (req, res) => {
+    const codigo = req.params.codigo;
     const { nombre, descripcion, tipo } = req.body;
 
     if (!nombre || !descripcion || !tipo) {
         return res.status(400).json({ message: 'Todos los campos (nombre, descripción y tipo) son obligatorios.' });
     }
 
-    const sql = 'UPDATE items SET nombre = ?, descripcion = ?, tipo = ? WHERE misionCodigo = ? AND tipo = "Misión"';
-    db.run(sql, [nombre, descripcion, tipo, misionCodigo], function (err) {
+    const sql = 'UPDATE items SET nombre = ?, descripcion = ?, tipo = ? WHERE codigo = ? AND tipo = "Misión"';
+    db.run(sql, [nombre, descripcion, tipo, codigo], function (err) {
         if (err) {
             return res.status(500).json({ message: 'Error al actualizar la misión', error: err.message });
         }
@@ -191,11 +191,11 @@ app.delete('/api/operativo/:id', (req, res) => {
 });
 
 // Eliminar un equipo por código
-app.delete('/api/equipo/:EquipoCodigo', (req, res) => {
-    const EquipoCodigo = req.params.EquipoCodigo;
-    const sql = 'DELETE FROM items WHERE EquipoCodigo = ? AND tipo = "Equipo"';
+app.delete('/api/equipo/:equipoCodigo', (req, res) => {
+    const equipoCodigo = req.params.equipoCodigo;
+    const sql = 'DELETE FROM items WHERE equipoCodigo = ? AND tipo = "Equipo"';
 
-    db.run(sql, EquipoCodigo, function (err) {
+    db.run(sql, equipoCodigo, function (err) {
         if (err) {
             return res.status(500).json({ message: 'Error al eliminar el equipo', error: err.message });
         }
@@ -207,11 +207,11 @@ app.delete('/api/equipo/:EquipoCodigo', (req, res) => {
 });
 
 // Eliminar una misión por código
-app.delete('/api/mision/:misionCodigo', (req, res) => {
-    const misionCodigo = req.params.misionCodigo;
-    const sql = 'DELETE FROM items WHERE misionCodigo = ? AND tipo = "Misión"';
+app.delete('/api/mision/:codigo', (req, res) => {
+    const codigo = req.params.codigo;
+    const sql = 'DELETE FROM items WHERE codigo = ? AND tipo = "Misión"';
 
-    db.run(sql, misionCodigo, function (err) {
+    db.run(sql, codigo, function (err) {
         if (err) {
             return res.status(500).json({ message: 'Error al eliminar la misión', error: err.message });
         }

@@ -22,10 +22,10 @@ namespace ByteStormBackend.Controllers
             return await _context.Misiones.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Mision>> GetMision(int id)
+        [HttpGet("{codigo}")]
+        public async Task<ActionResult<Mision>> GetMision(int codigo)
         {
-            var mision = await _context.Misiones.FindAsync(id);
+            var mision = await _context.Misiones.FindAsync(codigo);
 
             if (mision == null)
             {
@@ -41,13 +41,13 @@ namespace ByteStormBackend.Controllers
             _context.Misiones.Add(mision);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetMision), new { id = mision.Codigo }, mision);
+            return CreatedAtAction(nameof(GetMision), new { codigo = mision.codigo }, mision);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMision(int id, Mision mision)
+        [HttpPut("{codigo}")]
+        public async Task<IActionResult> PutMision(int codigo, Mision mision)
         {
-            if (id != mision.Codigo)
+            if (codigo != mision.codigo)
             {
                 return BadRequest();
             }
@@ -60,7 +60,7 @@ namespace ByteStormBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MisionExists(id))
+                if (!MisionExists(codigo))
                 {
                     return NotFound();
                 }
@@ -74,9 +74,9 @@ namespace ByteStormBackend.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteMision(int id)
+        public async Task<IActionResult> DeleteMision(int codigo)
         {
-            var mision = await _context.Misiones.FindAsync(id);
+            var mision = await _context.Misiones.FindAsync(codigo);
             if (mision == null)
             {
                 return NotFound();
@@ -88,9 +88,9 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        private bool MisionExists(int id)
+        private bool MisionExists(int codigo)
         {
-            return _context.Misiones.Any(e => e.Codigo == id);
+            return _context.Misiones.Any(e => e.codigo == codigo);
         }
     }
 }

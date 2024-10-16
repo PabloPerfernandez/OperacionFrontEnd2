@@ -9,7 +9,7 @@ const routes = [
     component: IntroScreen,
   },
   {
-    path: '/operativos', // Web en sí
+    path: '/main', // Web en sí
     name: 'MainList',
     component: MainList,
   },

@@ -26,7 +26,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$router.push('/operativos');
+      this.$router.push('/main');
     }, 6000);
   },
 };

@@ -2,7 +2,7 @@
   <v-container>
     <h1>OPERACIÓN BYTESTORM</h1>
 
-    <!-- CudForm -->
+    <!-- CrudForm -->
     <CrudForm
       :equipoSeleccionado="selectedEquipo"
       :operativoSeleccionado="selectedOperativo"
@@ -143,16 +143,17 @@ export default {
         let apiUrl = "";
 
         // Eliminar Operativo
-        if (type == 'operativo' && item.id) {
+        if (type === 'operativo' && item.id) {
           apiUrl = `http://localhost:5056/api/operativo/delete?id=${item.id}`;
         }
         // Eliminar Misión
-        else if (type == 'mision' && item.codigo) {
+        else if (type === 'mision' && item.codigo) {
           apiUrl = `http://localhost:5056/api/mision/delete?codigo=${item.codigo}`;
         }
         // Eliminar Equipo
-        else if (type == 'equipo' && item.EquipoCodigo) {
-          apiUrl = `http://localhost:5056/api/equipo/delete?EquipoCodigo=${item.EquipoCodigo}`;
+        else if (type === 'equipo' && item.equipoCodigo) {
+          apiUrl = `http://localhost:5056/api/equipo/delete?equipoCodigo=${item.equipoCodigo}`;
+          console.log("URL de eliminación:", apiUrl);
         } else {
           throw new Error("No se puede determinar el tipo de ítem para eliminar.");
         }
@@ -165,11 +166,12 @@ export default {
           throw new Error("Error al eliminar el ítem.");
         }
 
-        handleDataSaved();
+        handleDataSaved(); // Recargar datos tras la eliminación
       } catch (error) {
         console.error("Error al eliminar el ítem:", error.message);
       }
     };
+
 
     const handleDataSaved = () => {
       selectedOperativo.value = null;

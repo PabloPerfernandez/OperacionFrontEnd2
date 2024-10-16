@@ -16,47 +16,43 @@ namespace ByteStormBackend.Controllers
             _context = context;
         }
 
-        // Obtener todos los equipos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Equipo>>> GetEquipos()
         {
             return await _context.Equipos.ToListAsync();
         }
 
-        // Obtener un equipo por su código
-        [HttpGet("{EquipoCodigo}")]
-        public async Task<ActionResult<Equipo>> GetEquipo(int EquipoCodigo)
+        [HttpGet("{equipoCodigo}")]
+        public async Task<ActionResult<Equipo>> GetEquipo(int equipoCodigo)
         {
-            var equipo = await _context.Equipos.FindAsync(EquipoCodigo);
+            var equipo = await _context.Equipos.FindAsync(equipoCodigo);
 
             if (equipo == null)
             {
-                return NotFound(new { message = $"El equipo con código {EquipoCodigo} no fue encontrado." });
+                return NotFound(new { message = $"El equipo con código {equipoCodigo} no fue encontrado." });
             }
 
             return equipo;
         }
 
-        // Crear un nuevo equipo
         [HttpPost("crear")]
         public async Task<ActionResult<Equipo>> CrearEquipo(Equipo equipo)
         {
-            if (EquipoExists(equipo.EquipoCodigo))
+            if (EquipoExists(equipo.equipoCodigo))
             {
-                return Conflict(new { message = $"El equipo con código {equipo.EquipoCodigo} ya existe." });
+                return Conflict(new { message = $"El equipo con código {equipo.equipoCodigo} ya existe." });
             }
 
             _context.Equipos.Add(equipo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetEquipo), new { codigo = equipo.EquipoCodigo }, equipo);
+            return CreatedAtAction(nameof(GetEquipo), new { equipoCodigo = equipo.equipoCodigo }, equipo);
         }
 
-        // Actualizar un equipo existente
-        [HttpPut("{EquipoCodigo}")]
-        public async Task<IActionResult> PutEquipo(int EquipoCodigo, Equipo equipo)
+        [HttpPut("{equipoCodigo}")]
+        public async Task<IActionResult> PutEquipo(int equipoCodigo, Equipo equipo)
         {
-            if (EquipoCodigo != equipo.EquipoCodigo)
+            if (equipoCodigo != equipo.equipoCodigo)
             {
                 return BadRequest(new { message = "El código del equipo no coincide con el código proporcionado." });
             }
@@ -69,9 +65,9 @@ namespace ByteStormBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipoExists(EquipoCodigo))
+                if (!EquipoExists(equipoCodigo))
                 {
-                    return NotFound(new { message = $"El equipo con código {EquipoCodigo} no existe." });
+                    return NotFound(new { message = $"El equipo con código {equipoCodigo} no existe." });
                 }
                 else
                 {
@@ -82,14 +78,13 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        // Eliminar un equipo por su código
-        [HttpDelete("{codigo}")]
-        public async Task<IActionResult> DeleteEquipo(int EquipoCodigo)
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteEquipo(int equipoCodigo)
         {
-            var equipo = await _context.Equipos.FindAsync(EquipoCodigo);
+            var equipo = await _context.Equipos.FindAsync(equipoCodigo);
             if (equipo == null)
             {
-                return NotFound(new { message = $"El equipo con código {EquipoCodigo} no fue encontrado." });
+                return NotFound(new { message = $"El equipo con código {equipoCodigo} no fue encontrado." });
             }
 
             _context.Equipos.Remove(equipo);
@@ -98,10 +93,13 @@ namespace ByteStormBackend.Controllers
             return NoContent();
         }
 
-        // Verificar si un equipo existe por su código
-        private bool EquipoExists(int codigo)
+
+
+
+        private bool EquipoExists(int equipoCodigo)
         {
-            return _context.Equipos.Any(e => e.EquipoCodigo == codigo);
+            return _context.Equipos.Any(e => e.equipoCodigo == equipoCodigo);
         }
+
     }
 }

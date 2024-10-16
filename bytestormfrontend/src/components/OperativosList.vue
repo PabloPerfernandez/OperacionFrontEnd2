@@ -2,6 +2,7 @@
   <v-row v-if="operativos.length > 0" dense>
     <v-col v-for="operativo in operativos" :key="operativo.id" cols="12" sm="6" md="4">
       <v-card outlined>
+
         <v-card-title>Operativo ID: {{ operativo.id }}</v-card-title>
         <v-card-subtitle>Nombre: {{ operativo.nombre }}</v-card-subtitle>
         <v-card-text>Rol: {{ operativo.rol }}</v-card-text>
@@ -15,9 +16,9 @@
 
               <!-- Equipos dentro de cada misión -->
               <v-list v-if="mision.equipos && mision.equipos.length > 0">
-                <v-list-item v-for="equipo in mision.equipos" :key="equipo.EquipoCodigo">
+                <v-list-item v-for="equipo in mision.equipos" :key="equipo.equipoCodigo">
                   <v-list-item-content>
-                    <v-list-item-title>Equipo Código: {{ equipo.EquipoCodigo }}</v-list-item-title>
+                    <v-list-item-title>Equipo Código: {{ equipo.equipoCodigo }}</v-list-item-title>
                     <v-list-item-subtitle>Tipo: {{ equipo.tipo }}</v-list-item-subtitle>
                     <v-list-item-text>Descripción: {{ equipo.descripcion }}</v-list-item-text>
                   </v-list-item-content>

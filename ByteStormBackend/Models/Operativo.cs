@@ -21,7 +21,7 @@ namespace ByteStormBackend.Models
         {
             if (Misiones != null && Misiones.Any())
             {
-                MisionAsignada = string.Join(", ", Misiones.Select(m => m.Codigo));
+                MisionAsignada = string.Join(", ", Misiones.Select(m => m.codigo));
             }
             else
             {

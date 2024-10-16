@@ -1,5 +1,5 @@
 <template>
-  <v-row dense>
+  <v-row v-if="misiones.length > 0" dense>
     <v-col v-for="mision in misiones" :key="mision.codigo" cols="12" sm="6" md="4">
       <v-card outlined>
         <v-card-title>Misión Código: {{ mision.codigo }}</v-card-title>
