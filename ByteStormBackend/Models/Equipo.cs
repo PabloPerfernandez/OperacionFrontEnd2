@@ -6,8 +6,8 @@ namespace ByteStormBackend.Models
     {
         [Key]
         public int equipoCodigo { get; set; }  // Primary Key
-        public int Tipo { get; set; }
-        public string? Descripcion { get; set; }
+        public int equipoTipo { get; set; }
+        public string? equipoDescripcion { get; set; }
         public int EstadoEquipo { get; set; }
 
         // Clave foránea hacia Mision
@@ -16,7 +16,7 @@ namespace ByteStormBackend.Models
 
         public Equipo()
         {
-            Descripcion = string.Empty;
+            equipoDescripcion = string.Empty;
         }
     }
 }

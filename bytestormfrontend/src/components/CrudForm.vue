@@ -45,15 +45,15 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="formData.nombre"
-          label="Nombre de la Misión"
+          v-model="formData.Descripcion"
+          label="Descripción de la Misión"
           required
         ></v-text-field>
 
-        <v-textarea
-          v-model="formData.descripcion"
-          label="Descripción de la Misión"
-        ></v-textarea>
+        <v-text-field
+          v-model="formData.Estado"
+          label="Estado de la Misión"
+        ></v-text-field>
       </template>
 
       <!-- Campos específicos para Equipo -->
@@ -65,15 +65,20 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="formData.nombre"
-          label="Nombre del Equipo"
+          v-model="formData.equipoTipo"
+          label="Tipo de Equipo"
           required
         ></v-text-field>
 
-        <v-textarea
-          v-model="formData.descripcion"
+        <v-text-field
+          v-model="formData.equipoDescripcion"
           label="Descripción del Equipo"
-        ></v-textarea>
+        ></v-text-field>
+
+        <v-text-field
+          v-model="formData.EstadoEquipo"
+          label="Estado del Equipo"
+        ></v-text-field>
       </template>
 
       <!-- Botón de enviar -->
@@ -227,10 +232,13 @@ export default defineComponent({
         id: "",
         nombre: "",
         rol: "",
-        misionAsignada: "",
         codigo: "",
+        Descripcion: "",
+        Estado: "",
+        misionAsignada: "",
         equipoCodigo: "",
-        descripcion: "",
+        equipoTipo: "",
+        equipoDescripcion: "",
       };
     };
 
