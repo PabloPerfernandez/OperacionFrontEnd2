@@ -114,16 +114,16 @@ export default {
     };
 
     // Edición de ítem
-    const editItem = (item) => {
-      if (item.operativoID) {
+    const editItem = (item, type) => {
+      if (type == 'operativo') {
         selectedOperativo.value = item;
         selectedMision.value = null;
         selectedEquipo.value = null;
-      } else if (item.misionCodigo) {
+      } else if (type == 'mision') {
         selectedMision.value = item;
         selectedOperativo.value = null;
         selectedEquipo.value = null;
-      } else {
+      } else if (type == 'equipo') {
         selectedEquipo.value = item;
         selectedOperativo.value = null;
         selectedMision.value = null;

@@ -17,7 +17,8 @@ namespace ByteStormBackend.Migrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
-                    Rol = table.Column<string>(type: "TEXT", nullable: false)
+                    Rol = table.Column<string>(type: "TEXT", nullable: false),
+                    MisionAsignada = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +29,7 @@ namespace ByteStormBackend.Migrations
                 name: "Misiones",
                 columns: table => new
                 {
-                    Codigo = table.Column<int>(type: "INTEGER", nullable: false)
+                    codigo = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: true),
                     Estado = table.Column<int>(type: "INTEGER", nullable: false),
@@ -36,7 +37,7 @@ namespace ByteStormBackend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Misiones", x => x.Codigo);
+                    table.PrimaryKey("PK_Misiones", x => x.codigo);
                     table.ForeignKey(
                         name: "FK_Misiones_Operativos_OperativoID",
                         column: x => x.OperativoID,
@@ -49,21 +50,21 @@ namespace ByteStormBackend.Migrations
                 name: "Equipos",
                 columns: table => new
                 {
-                    EquipoCodigo = table.Column<int>(type: "INTEGER", nullable: false)
+                    equipoCodigo = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Tipo = table.Column<int>(type: "INTEGER", nullable: false),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: true),
+                    equipoTipo = table.Column<int>(type: "INTEGER", nullable: false),
+                    equipoDescripcion = table.Column<string>(type: "TEXT", nullable: true),
                     EstadoEquipo = table.Column<int>(type: "INTEGER", nullable: false),
                     MisionID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Equipos", x => x.EquipoCodigo);
+                    table.PrimaryKey("PK_Equipos", x => x.equipoCodigo);
                     table.ForeignKey(
                         name: "FK_Equipos_Misiones_MisionID",
                         column: x => x.MisionID,
                         principalTable: "Misiones",
-                        principalColumn: "Codigo",
+                        principalColumn: "codigo",
                         onDelete: ReferentialAction.Cascade);
                 });
 

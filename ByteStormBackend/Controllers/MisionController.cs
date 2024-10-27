@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ByteStormBackend.Models;
 using ByteStormBackend.Data;
+using ByteStormBackend.DTO;
 
 namespace ByteStormBackend.Controllers
 {
@@ -36,8 +37,20 @@ namespace ByteStormBackend.Controllers
         }
 
         [HttpPost("crear")]
-        public async Task<ActionResult<Mision>> CrearMision(Mision mision)
+        public async Task<ActionResult<Mision>> CrearMision([FromBody]CrearMisionDTO misionDTO)
         {
+            var mision = new Mision
+            {
+                Descripcion = misionDTO.Descripcion,
+                Estado = misionDTO.Estado,
+                OperativoID = misionDTO.OperativoID
+            };
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Misiones.Add(mision);
             await _context.SaveChangesAsync();
 

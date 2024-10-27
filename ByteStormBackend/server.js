@@ -36,22 +36,79 @@ db.run(`
     }
 });
 
-// Crear un nuevo item (equipo, misión o operativo)
+// Crear un nuevo item (Operativo, Misión o Equipo)
 app.post('/api/crear', (req, res) => {
-    const { nombre, descripcion, tipo, codigo, Mision } = req.body;
+    const { nombre, descripcion, tipo, rol, estado, operativoID, equipoCodigo, MisionId, estadoEquipo } = req.body;
 
-    if (!nombre || !descripcion || !tipo) {
-        return res.status(400).json({ message: 'Los campos (nombre, descripción y tipo) son obligatorios.' });
+    let sql;
+    let params;
+
+    // Lógica de validación y generación de campos
+    if (tipo === 'Operativo') {
+        // Validación para Operativo
+        if (!nombre || !rol) {
+            return res.status(400).json({ message: 'Los campos nombre y rol son obligatorios para Operativo.' });
+        }
+
+        // Generar automáticamente el ID del Operativo (puedes usar un campo AUTOINCREMENT en la base de datos)
+        const idGenerado = generateId();  // Si es autogenerado en la base de datos, puedes omitir esto.
+
+        sql = 'INSERT INTO Operativos (nombre, rol, id, MisionAsignada) VALUES (?, ?, ?, ?)';
+        params = [nombre, rol, idGenerado, MisionId || null];
+    } 
+    else if (tipo === 'Misión') {
+        // Validación para Misión
+        if (!estado || !operativoID) {
+            return res.status(400).json({ message: 'Los campos estado y operativoID son obligatorios para Misión.' });
+        }
+
+        // Generar automáticamente el código de la Misión
+        const codigoGenerado = generateCodigo();  // Si es autogenerado en la base de datos, puedes omitir esto.
+
+        sql = 'INSERT INTO Misiones (estado, operativoID, codigo, descripcion) VALUES (?, ?, ?, ?)';
+        params = [estado, operativoID, codigoGenerado, descripcion || null];
+    } 
+    else if (tipo === 'Equipo') {
+        // Validación para Equipo
+        if (!estadoEquipo || !tipo) {
+            return res.status(400).json({ message: 'Los campos tipo y estadoEquipo son obligatorios para Equipo.' });
+        }
+
+        // Generar automáticamente el código del Equipo
+        const equipoCodigoGenerado = generateEquipoCodigo();  // Si es autogenerado en la base de datos, puedes omitir esto.
+
+        sql = 'INSERT INTO Equipos (tipo, estadoEquipo, equipoCodigo, MisionId, descripcion) VALUES (?, ?, ?, ?, ?)';
+        params = [tipo, estadoEquipo, equipoCodigoGenerado, MisionId || null, descripcion || null];
+    } 
+    else {
+        return res.status(400).json({ message: 'Tipo no válido. Debe ser "Operativo", "Misión" o "Equipo".' });
     }
 
-    const sql = 'INSERT INTO items (nombre, descripcion, tipo, equipoCodigo, Mision) VALUES (?, ?, ?, ?, ?)';
-    db.run(sql, [nombre, descripcion, tipo, equipoCodigo || null, Mision || null], function (err) {
+    // Ejecutar la consulta SQL
+    db.run(sql, params, function (err) {
         if (err) {
             return res.status(500).json({ message: 'Error al insertar los datos', error: err.message });
         }
+
+        // Respondemos con éxito y el ID del último registro insertado
         res.status(201).json({ message: 'Datos insertados correctamente', id: this.lastID });
     });
 });
+
+// Función para generar un ID (si es necesario)
+function generateId() {
+    return Math.floor(Math.random() * 10000);  // Ejemplo de generación simple, cambiar según tus necesidades
+}
+
+// Función para generar un código de Misión (si es necesario)
+function generateCodigo() {
+    return Math.floor(Math.random() * 10000);  // Ejemplo de generación simple, cambiar según tus necesidades
+}
+
+// Función para generar un equipoCodigo (si es necesario)
+function generateEquipoCodigo() {
+    return Math.floor(Math.random() * 10000);  // Ejemplo de generación simple, cambiar según tus necesidades
+}
 
 // Obtener todos los elementos
 app.get('/api/items', (req, res) => {

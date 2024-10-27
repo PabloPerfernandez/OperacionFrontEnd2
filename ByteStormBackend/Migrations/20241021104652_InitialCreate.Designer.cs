@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ByteStormBackend.Migrations
 {
     [DbContext(typeof(ByteStormContext))]
-    [Migration("20240829100817_InitialCreate")]
+    [Migration("20241021104652_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,12 +22,9 @@ namespace ByteStormBackend.Migrations
 
             modelBuilder.Entity("ByteStormBackend.Models.Equipo", b =>
                 {
-                    b.Property<int>("EquipoCodigo")
+                    b.Property<int>("equipoCodigo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("EstadoEquipo")
                         .HasColumnType("INTEGER");
@@ -35,10 +32,13 @@ namespace ByteStormBackend.Migrations
                     b.Property<int?>("MisionID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Tipo")
+                    b.Property<string>("equipoDescripcion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("equipoTipo")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("EquipoCodigo");
+                    b.HasKey("equipoCodigo");
 
                     b.HasIndex("MisionID");
 
@@ -47,7 +47,7 @@ namespace ByteStormBackend.Migrations
 
             modelBuilder.Entity("ByteStormBackend.Models.Mision", b =>
                 {
-                    b.Property<int>("Codigo")
+                    b.Property<int>("codigo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -60,7 +60,7 @@ namespace ByteStormBackend.Migrations
                     b.Property<int>("OperativoID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Codigo");
+                    b.HasKey("codigo");
 
                     b.HasIndex("OperativoID");
 
@@ -72,6 +72,10 @@ namespace ByteStormBackend.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("MisionAsignada")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
                         .IsRequired()

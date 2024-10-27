@@ -19,7 +19,23 @@ namespace ByteStormBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Equipo>>> GetEquipos()
         {
-            return await _context.Equipos.ToListAsync();
+            try
+            {
+                var equipos = await _context.Equipos.ToListAsync();
+
+                if (equipos == null || equipos.Count == 0)
+                {
+                    return NoContent();  // Puedes devolver un 204 si no hay equipos
+                }
+
+                return Ok(equipos);
+            }
+            catch (Exception ex)
+            {
+                // Registrar el error
+                Console.WriteLine($"Error al obtener los equipos: {ex.Message}");
+                return StatusCode(500, new { message = "Error al obtener los equipos." });
+            }
         }
 
         [HttpGet("{equipoCodigo}")]
@@ -36,8 +52,16 @@ namespace ByteStormBackend.Controllers
         }
 
         [HttpPost("crear")]
-        public async Task<ActionResult<Equipo>> CrearEquipo(Equipo equipo)
+        public async Task<ActionResult<Equipo>> CrearEquipo([FromBody]CrearEquipoDTO equipoDTO)
         {
+            var equipo = new Equipo
+            {
+                equipoTipo = equipoDTO.equipoTipo,
+                equipoDescripcion = equipoDTO.equipoDescripcion,
+                EstadoEquipo = equipoDTO.EstadoEquipo,
+                MisionID = equipoDTO.MisionID,
+            };
+            
             if (EquipoExists(equipo.equipoCodigo))
             {
                 return Conflict(new { message = $"El equipo con código {equipo.equipoCodigo} ya existe." });

@@ -16,6 +16,6 @@ namespace ByteStormBackend.Models
 
         // Clave foránea hacia Operativo
         public int OperativoID { get; set; }
-        public required Operativo Operativo { get; set; }
+        public Operativo? Operativo { get; set; }
     }
 }

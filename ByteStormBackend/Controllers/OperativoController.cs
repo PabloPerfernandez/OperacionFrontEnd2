@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ByteStormBackend.Models;
 using ByteStormBackend.Data;
+using ByteStormBackend.DTO;
 
 namespace ByteStormBackend.Controllers
 {
@@ -36,8 +37,14 @@ namespace ByteStormBackend.Controllers
         }
 
         [HttpPost("crear")]
-        public async Task<ActionResult<Operativo>> CrearOperativo(Operativo operativo)
+        public async Task<ActionResult<Operativo>> CrearOperativo([FromBody]CrearOperativoDTO operativoDTO)
         {
+            var operativo = new Operativo
+            {
+                Nombre = operativoDTO.Nombre,
+                Rol = operativoDTO.Rol,
+                MisionAsignada = operativoDTO.MisionAsignada,
+            };
             _context.Operativos.Add(operativo);
             await _context.SaveChangesAsync();
 
@@ -45,12 +52,17 @@ namespace ByteStormBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOperativo(int id, Operativo operativo)
+        public async Task<IActionResult> PutOperativo(int id, [FromBody]ActualizarOperativoDTO operativoDTO)
         {
-            if (id != operativo.ID)
+            var operativo = await _context.Operativos.FindAsync(id);
+            if (operativo == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            operativo.Nombre = operativoDTO.Nombre;
+            operativo.Rol = operativoDTO.Rol;
+            operativo.MisionAsignada = operativoDTO.MisionAsignada;
 
             _context.Entry(operativo).State = EntityState.Modified;
 
@@ -72,6 +84,7 @@ namespace ByteStormBackend.Controllers
 
             return NoContent();
         }
+
 
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteOperativo(int id)
