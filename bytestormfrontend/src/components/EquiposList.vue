@@ -2,9 +2,9 @@
   <v-row v-if="equipos.length > 0" dense>
     <v-col v-for="equipo in equipos" :key="equipo.equipoCodigo" cols="12" sm="6" md="4">
       <v-card outlined class="equipo-card">
-        <v-card-title class="card-title">Equipo ID: {{ equipo.equipoCodigo }}</v-card-title>
-        <v-card-text class="card-description">{{ equipo.descripcion || 'Sin descripción' }}</v-card-text>
-        <v-card-subtitle class="card-subtitle">Tipo: {{ equipo.tipo }}</v-card-subtitle>
+        <v-card-title class="card-title">ID: {{ equipo.equipoCodigo }}</v-card-title>
+        <v-card-text class="card-description">{{ equipo.equipoDescripcion || 'Sin descripción' }}</v-card-text>
+        <v-card-subtitle class="card-subtitle">Tipo: {{ equipo.equipoTipo }}</v-card-subtitle>
 
         <!-- Botones de editar y eliminar -->
         <v-card-actions class="card-actions">
@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 .equipo-card {
-  background-color: blue;
+  background-color: #5e1f1f;
   color: #f7f9fc;
   border-radius: 8px;
   padding: 16px;

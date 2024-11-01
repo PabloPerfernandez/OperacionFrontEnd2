@@ -204,8 +204,11 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+
 .app-title {
-  font-size: 2.5rem;
+  font-size: 5rem;
+  font-family: 'Handjet', sans-serif;
   color: #ffffff;
   text-align: center;
   margin-top: 20px;
@@ -216,7 +219,8 @@ export default {
 
 .section-title {
   font-size: 1.8rem;
-  color: #9A2B2B;
+  font-family: 'Handjet', sans-serif;
+  color: #ffffff;
   margin-top: 30px;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -225,17 +229,19 @@ export default {
 }
 
 .v-container {
-  background-color: #5e1f1f;
+  font-family: 'Handjet', sans-serif;
   padding: 20px;
   border-radius: 10px;
 }
 
 .v-list-item-title {
+  font-family: 'Handjet', sans-serif;
   font-size: 1.2rem;
   color: #ffffff;
 }
 
 .v-list-item {
+  font-family: 'Handjet', sans-serif;
   background-color: #3e434c;
   margin-bottom: 8px;
   border-radius: 5px;
@@ -243,11 +249,13 @@ export default {
 }
 
 .v-btn {
+  font-family: 'Handjet', sans-serif;
   margin: 5px;
   color: #ffffff;
 }
 
 .v-btn--primary {
+  font-family: 'Handjet', sans-serif;
   background-color: #5d9cec;
   border-radius: 8px;
   font-weight: bold;
@@ -255,18 +263,22 @@ export default {
 }
 
 .v-btn--primary:hover {
+  font-family: 'Handjet', sans-serif;
   background-color: #4a8be0;
 }
 
 .v-btn--icon {
+  font-family: 'Handjet', sans-serif;
   color: #9A2B2B;
 }
 
 .v-divider {
+  font-family: 'Handjet', sans-serif;
   background-color: #9A2B2B;
 }
 
 .v-form {
+  font-family: 'Handjet', sans-serif;
   background-color: #444a54;
   padding: 20px;
   border-radius: 8px;
@@ -275,20 +287,13 @@ export default {
 }
 
 .v-select, .v-text-field {
+  font-family: 'Handjet', sans-serif;
   background-color: #3e434c;
   color: #ffffff;
 }
 
 .v-select__selections, .v-text-field__slot {
+  font-family: 'Handjet', sans-serif;
   color: #ffffff;
-}
-
-.v-select__control, .v-text-field__control {
-  border: 1px solid #5d9cec;
-  border-radius: 8px;
-}
-
-.v-input__control:hover {
-  border-color: #4a8be0;
 }
 </style>

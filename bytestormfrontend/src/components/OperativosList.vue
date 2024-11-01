@@ -2,7 +2,7 @@
   <v-row v-if="operativos.length > 0" dense>
     <v-col v-for="operativo in operativos" :key="operativo.id" cols="12" sm="6" md="4">
       <v-card outlined class="operativo-card">
-        <v-card-title class="card-title">Operativo ID: {{ operativo.id }}</v-card-title>
+        <v-card-title class="card-title">ID: {{ operativo.id }}</v-card-title>
         <v-card-subtitle class="card-subtitle">Nombre: {{ operativo.nombre }}</v-card-subtitle>
         <v-card-text>Rol: {{ operativo.rol }}</v-card-text>
 
@@ -52,7 +52,7 @@ export default {
 
 <style scoped>
 .operativo-card {
-  background-color: purple;
+  background-color: #5e1f1f;
   color: #ecf0f1;
   border-radius: 8px;
   padding: 16px;
@@ -78,10 +78,9 @@ export default {
 }
 
 .mision-item {
-  background-color: #34495e;
+  background-color: #4f5e34;
   border-radius: 6px;
-  margin-bottom: 8px;
-  padding: 8px;
+
 }
 
 .mision-title {
@@ -95,7 +94,7 @@ export default {
 }
 
 .equipo-item {
-  background-color: #3b5998;
+  background-color: #999999;
   border-radius: 6px;
   margin: 4px 0;
   padding: 8px;
@@ -116,16 +115,5 @@ export default {
   color: #95a5a6;
   text-align: center;
   padding: 8px 0;
-}
-
-.card-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.action-btn {
-  color: #ffffff;
-  font-weight: 500;
 }
 </style>

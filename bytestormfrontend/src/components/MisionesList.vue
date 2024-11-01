@@ -2,8 +2,11 @@
   <v-row v-if="misiones.length > 0" dense>
     <v-col v-for="mision in misiones" :key="mision.codigo" cols="12" sm="6" md="4">
       <v-card outlined class="mision-card">
-        <v-card-title class="card-title">Misión Código: {{ mision.codigo }}</v-card-title>
-        <v-card-subtitle class="card-subtitle">Asignada a: {{ mision.operativo?.nombre || 'No asignada' }}</v-card-subtitle>
+        <v-card-title class="card-title">Código: {{ mision.codigo }}</v-card-title>
+        
+        <!-- Cambié los nombres de las propiedades a camelCase -->
+        <v-card-subtitle class="card-subtitle">Asignada al operativo número {{ mision.operativoID || 'No asignada' }}</v-card-subtitle>
+        <v-card-subtitle class="card-subtitle">Estado: {{ mision.estado || 'Sin Estado' }}</v-card-subtitle>
         <v-card-text class="card-description">Descripción: {{ mision.descripcion || 'Sin descripción' }}</v-card-text>
 
         <!-- Mostrar equipos asociados a la misión -->
@@ -24,7 +27,6 @@
           <v-btn @click="$emit('edit', mision, 'mision')" color="primary" class="action-btn">Editar</v-btn>
           <v-btn @click="$emit('delete', mision, 'mision')" color="error" class="action-btn">Eliminar</v-btn>
         </v-card-actions>
-
       </v-card>
     </v-col>
   </v-row>
@@ -41,7 +43,7 @@ export default {
 
 <style scoped>
 .mision-card {
-  background-color: greenyellow;
+  background-color: #5e1f1f;
   color: #f7f9fc;
   border-radius: 8px;
   padding: 16px;
